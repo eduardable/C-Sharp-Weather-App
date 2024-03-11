@@ -17,11 +17,11 @@
 		string place_id = places[placeNr-1].place_id;
 	    var weather = service.getWeather(place_id).Result;
 		string degrees;
-		if(weather.Units == "metric"){
-			degrees = " Celsius";
+		if(weather.Units == "us"){
+			degrees = " Fahrenheit";
 		}
 		else{
-			degrees = " Fahrenheit";
+			degrees = " Celsius";
 		}
 		Console.WriteLine("Currently it's " + weather.Current.Summary + " at "
 		 + weather.Current.Temperature + degrees);
