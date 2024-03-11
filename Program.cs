@@ -1,6 +1,5 @@
 ﻿public class Program 
 {
-	
 	static void Main(string[] args)
 	{
 		Console.WriteLine("Hello this is a Weather App");
@@ -24,7 +23,26 @@
 		else{
 			degrees = " Fahrenheit";
 		}
-		Console.WriteLine("Currently it's " + weather.Current.Summary + " at " + weather.Current.Temperature + degrees);
+		Console.WriteLine("Currently it's " + weather.Current.Summary + " at "
+		 + weather.Current.Temperature + degrees);
+		Console.WriteLine("Precipitation " + weather.Current.Precipitation.Total + "%"
+		 + " " + weather.Current.Precipitation.Type);
+		Console.WriteLine("Would you like an hourly breakdown of today's weather? y/n");
+		
+		if(String.Equals(Console.ReadLine(), "y", StringComparison.CurrentCultureIgnoreCase)){
+			foreach (Forecast forecast in weather.Hourly.Data)
+			{
+				var time = service.dateToTime(forecast.Date);
+				Console.WriteLine(time+": " + forecast.Summary + " at " + forecast.Temperature + degrees);
+				Console.WriteLine("Precipitation " + forecast.Precipitation.Total + "%"
+				 + " " + forecast.Precipitation.Type);
+				Console.WriteLine();
+			}
+			Console.WriteLine("Thank you for using my Weather App!"); 
+		}
+		else{
+			Console.WriteLine("Thank you for using my Weather App!"); 
+		}
 		Console.ReadLine();
 	} 
 }

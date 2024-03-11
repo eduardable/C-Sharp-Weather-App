@@ -44,4 +44,33 @@ public class WeatherService
         WeatherData weatherData = JsonConvert.DeserializeObject<WeatherData>(body);
         return weatherData;
 	}
+
+    /*public List<Forecasts> convertToForecast(WeatherData weatherData)
+    {
+        List<Forecasts> forecasts = new List<Forecasts>();
+        foreach (Forecasts forecast in weatherData.Hourly)
+        {
+            // Access forecast properties (e.g., Date, Weather, Temperature, etc.)
+            string forecastDate = forecast.Date;
+            string forecastWeather = forecast.Summary;
+            // ...
+        }
+        return forecasts;
+    }*/
+    public string dateToTime(string dateString){
+		// Parse the string into a DateTime object
+		DateTime dateTime;
+		if (DateTime.TryParseExact(dateString, "yyyy-MM-ddTHH:mm:ss",
+			System.Globalization.CultureInfo.InvariantCulture,
+			System.Globalization.DateTimeStyles.None, out dateTime))
+		{
+			// Extract the time part (HH:mm) from the DateTime object
+			string timePart = dateTime.ToString("HH:mm");
+			return timePart;
+		}
+		else
+		{
+			return "Invalid date and time format.";
+		}
+	}
 }
