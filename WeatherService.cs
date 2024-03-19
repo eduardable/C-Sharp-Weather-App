@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 public class WeatherService
 {
+    //gets API key from user secrets
     private string getKey(){
         var config = new ConfigurationBuilder()
             .AddUserSecrets<Program>()
@@ -9,6 +10,7 @@ public class WeatherService
         string key = config["key"];
         return key;
     }
+    //sends API request to meteosource with a given URI
     public async Task<String> sendRequest(string url)
     {
         var client = new HttpClient();
@@ -24,6 +26,8 @@ public class WeatherService
             return body;
         }
     }
+    //expects either a name or a zip code to a location
+    //e.g London or 10019 (Manhattan, NYC)
     public async Task<List<Place>> getLocation(string place)
 	{
         List<String> placeList = new List<String>();
@@ -35,6 +39,7 @@ public class WeatherService
         return places;
 	}
 
+    //gets weather data from a place_id 
     public async Task<WeatherData> getWeather(string place_id)
 	{
 		var uri = "https://www.meteosource.com/api/v1/free/point?place_id="
@@ -45,18 +50,7 @@ public class WeatherService
         return weatherData;
 	}
 
-    /*public List<Forecasts> convertToForecast(WeatherData weatherData)
-    {
-        List<Forecasts> forecasts = new List<Forecasts>();
-        foreach (Forecasts forecast in weatherData.Hourly)
-        {
-            // Access forecast properties (e.g., Date, Weather, Temperature, etc.)
-            string forecastDate = forecast.Date;
-            string forecastWeather = forecast.Summary;
-            // ...
-        }
-        return forecasts;
-    }*/
+    //converts yyyy-MM-ddTHH:mm:ss time format to HH:mm
     public string dateToTime(string dateString){
 		// Parse the string into a DateTime object
 		DateTime dateTime;

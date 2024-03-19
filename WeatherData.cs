@@ -1,3 +1,4 @@
+//This whole code is just to navigate the JSON data from the API response
 public class Place
 {
     public string name { get; set; }
